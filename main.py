@@ -22,6 +22,7 @@ To run tests:
 
 def isPrime(n):
   """
+  Test if a number 'n' is prime.
   """
   pass
 
@@ -35,14 +36,31 @@ def userPrompt():
 class PrimeTest(unittest.TestCase):
   def setUp(self):
     """
+    Set up numbers to test for primality.
     """
-    pass
+    self.values = [
+      (-1,  False),
+      (0,   False),
+      (1,   False),
+      (2,    True),
+      (7,    True),
+      (9,   False),
+      (11,   True),
+      (40,  False),
+      (221, False),
+      (2549, True),
+    ]
   
   def test_isPrime(self):
     """
+    Primality Test.
     """
-    pass
+    for number, expected in self.values:
+      self.assertEqual(isPrime(number), expected)
 
 
 if __name__ == "__main__":
-  userPrompt()
+  if "test" in sys.argv[1:]:
+    unittest.main()
+  else:
+    userPrompt()
