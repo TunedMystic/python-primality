@@ -24,7 +24,19 @@ def isPrime(n):
   """
   Test if a number 'n' is prime.
   """
-  pass
+  # The only even number that is prime.
+  if n == 2:
+    return True
+  # 1, 0 and negative numbers are not prime.
+  # Even numbers (other than 2) are not prime.
+  if n < 2 or n % 2 == 0:
+    return False
+  # Iterate up to the square root of n.
+  # Test only odd numbers greater than 2.
+  for i in range(3, int(math.sqrt(n) + 1), 2):
+    if n % i == 0:
+      return False
+  return True
 
 
 def userPrompt():
@@ -56,6 +68,7 @@ class PrimeTest(unittest.TestCase):
     Primality Test.
     """
     for number, expected in self.values:
+      print "Testing %s" %(number)
       self.assertEqual(isPrime(number), expected)
 
 
