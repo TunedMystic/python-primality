@@ -18,3 +18,31 @@ To run program:
 To run tests:
   > python main.py test
 """
+
+
+def isPrime(n):
+  """
+  """
+  pass
+
+
+def userPrompt():
+  """
+  """
+  pass
+
+
+class PrimeTest(unittest.TestCase):
+  def setUp(self):
+    """
+    """
+    pass
+  
+  def test_isPrime(self):
+    """
+    """
+    pass
+
+
+if __name__ == "__main__":
+  userPrompt()
