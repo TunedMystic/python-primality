@@ -12,6 +12,8 @@ a helpful error message. Otherwise, output 'prime' if the integer
 is prime (divisible by 1 and itself), or 'composite' if the
 integer is not prime.
 
+Github Repository: https://github.com/TunedMystic/python-primality
+
 To run program:
   > python main.py
   
@@ -39,10 +41,42 @@ def isPrime(n):
   return True
 
 
+def clean_input(msg):
+  """
+  Prompts the user for an integer.
+  Returns the integer if it is more than 1.
+  Returns an error message otherwise.
+  """
+  try:
+    # Attempt to convert the input to an int.
+    num = int(raw_input(msg))
+    if num <= 1:
+      return "%d is not greater than 1. Try again." %(num)
+    else:
+      return num
+  except ValueError:
+    # Catch errors during type conversion.
+    return "Hmm, that's not an integer. Try again."
+
+
 def userPrompt():
   """
+  Prompt user to enter an integer.
+  If integer is less than or equal to 1, print error message.
+  If integer is more than 1, test primality and output results.
   """
-  pass
+  while True:
+    val = clean_input("\nPlease enter an integer greater than 1.\n> ")
+    # If an integer is returned, it is considered 'cleaned'.
+    # If a string is returned, it is considered an error message.
+    if isinstance(val, int):
+      if isPrime(val):
+        print "prime"
+      else:
+        print "composite"
+      return
+    else:
+      print val
 
 
 class PrimeTest(unittest.TestCase):
@@ -50,6 +84,7 @@ class PrimeTest(unittest.TestCase):
     """
     Set up numbers to test for primality.
     """
+    self.isPrime = isPrime
     self.values = [
       (-1,  False),
       (0,   False),
@@ -68,12 +103,16 @@ class PrimeTest(unittest.TestCase):
     Primality Test.
     """
     for number, expected in self.values:
-      print "Testing %s" %(number)
-      self.assertEqual(isPrime(number), expected)
+      print "\nTesting   : %s" %(number)
+      print "Expecting : %s"   %(expected)
+      result = self.isPrime(number)
+      self.assertEqual(result, expected)
+      print "Got       : %s" %(result)
 
 
 if __name__ == "__main__":
   if "test" in sys.argv[1:]:
+    sys.argv.pop()
     unittest.main()
   else:
     userPrompt()
